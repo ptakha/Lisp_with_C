@@ -1,7 +1,8 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-/* Declare a buffer for user input of size 2048 */
-static char input[2048];
+#include <editline/readline.h>
+
 
 int main(int argc, char** argv)
 {
@@ -13,12 +14,14 @@ int main(int argc, char** argv)
 
   while(1)
   {
-    /*Put 'lispy> ' to stdout */
-    fputs("lispy> ", stdout);
-    /*Get string(char*) from stdin of maximum size 2048 and put it to variable input */
-    fgets(input, 2048, stdin);
+    /*Get input from user*/
+    char* input = readline("lispy> ");
+    /*Add input to history*/
+    add_history(input);
     /*Printf echo*/
     printf("Echo: %s\n", input);
+    /*Free retrieved input*/
+    free(input);
   }
 
   return 0;
